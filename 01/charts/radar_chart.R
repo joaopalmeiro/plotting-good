@@ -52,10 +52,19 @@ vigia <- df %>%
   mutate(mes = month(data, label = TRUE))
 vigia
 
+# https://github.com/ricardo-bion/ggradar/blob/master/R/ggradar.R#L69
+
 vigia %>%
   select(nome_infraestrutura, mes, resumo_infraestrutura) %>%
   pivot_wider(names_from = mes, values_from = resumo_infraestrutura) %>%
-  ggradar(grid.min = 0, grid.mid = 50, grid.max = 100)
+  ggradar(
+    grid.min = 0,
+    grid.mid = 50,
+    grid.max = 100,
+    label.gridline.min = FALSE,
+    label.gridline.mid = FALSE,
+    label.gridline.max = FALSE
+  )
 
 gridlines_df <-
   data.frame(
