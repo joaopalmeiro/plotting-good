@@ -53,6 +53,7 @@ vigia <- df %>%
 vigia
 
 # https://github.com/ricardo-bion/ggradar/blob/master/R/ggradar.R#L69
+# https://github.com/easystats/see/blob/master/R/coord_radar.R
 
 vigia %>%
   select(nome_infraestrutura, mes, resumo_infraestrutura) %>%
