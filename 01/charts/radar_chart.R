@@ -38,13 +38,6 @@ df <- read_csv(
 )
 df
 
-data <- iris %>%
-  group_by(Species) %>%
-  summarise(across(everything(), mean)) %>%
-  reshape_longer(c("Sepal.Length", "Sepal.Width", "Petal.Length", "Petal.Width"))
-
-data
-
 convert_month <- function(x) {
   paste0(str_to_lower(x), ".")
 }
@@ -155,7 +148,9 @@ vigia %>%
   geom_text(
     aes(x = x, y = y, label = label),
     labels_df,
-    size = 2, hjust = "middle", vjust = "center"
+    size = 2,
+    hjust = "middle",
+    vjust = "center"
   ) +
   # https://ggplot2.tidyverse.org/reference/geom_text.html
   geom_label(
