@@ -19,6 +19,8 @@ library(see)
 library(ggradar)
 library(tidyr)
 library(here)
+library(stringr)
+library(forcats)
 
 # https://tibble.tidyverse.org/articles/types.html
 # https://readr.tidyverse.org/reference/parse_datetime.html#format-specification
@@ -43,13 +45,20 @@ data <- iris %>%
 
 data
 
+convert_month <- function(x) {
+  paste0(str_to_lower(x), ".")
+}
+
 vigia <- df %>%
   filter(
     nome_infraestrutura == "Vigia",
     medida == "percentagem",
     data %within% interval(ymd("2021-01-01"), ymd("2021-12-01"))
   ) %>%
-  mutate(mes = month(data, label = TRUE))
+  # `system("locale -a")`
+  # https://ciberduvidas.iscte-iul.pt/consultorio/perguntas/as-abreviaturas-dos-meses-dos-anos-segundo-o-novo-acordo-ortografico/30221
+  mutate(mes = month(data, label = TRUE, locale = "pt_PT")) %>%
+  mutate(mes = fct_relabel(mes, convert_month))
 vigia
 
 # https://github.com/ricardo-bion/ggradar/blob/master/R/ggradar.R#L69
@@ -76,7 +85,7 @@ gridlines_df <-
 gridlines_df
 
 labels_df <- data.frame(
-  x = rep("Jan", 4),
+  x = rep(vigia$mes[1], 4),
   y = c(25, 50, 75, 100),
   label = c("25%", "50%", "75%", "100%")
 )
@@ -108,8 +117,38 @@ vigia %>%
     axis.ticks = element_blank(),
     panel.ontop = FALSE,
     panel.grid.major.y = element_blank(),
-    # panel.grid.major.x = element_blank(),
-    panel.grid.major.x = element_line(color = "lightgrey", size = 0.25),
+    panel.grid.major.x = element_blank(),
+    panel.background = element_rect(fill = NA),
+    plot.margin = margin(t = 0, r = 0, b = 0, l = 0)
+  )
+
+# ggsave(here("radar_chart.svg"))
+# ggsave(here("radar_chart.png"))
+
+vigia %>%
+  ggplot() +
+  geom_polygon(
+    aes(x = x, y = y, group = y),
+    gridlines_df,
+    color = "lightgrey",
+    fill = NA,
+    size = 0.25
+  ) +
+  scale_y_continuous(limits = c(0, 100)) +
+  scale_x_discrete(labels = c("", as.character(vigia$mes[-1]))) +
+  coord_radar(start = -pi / 12) +
+  theme(
+    axis.title = element_blank(),
+    axis.text.y = element_blank(),
+    # Warning:
+    # axis.text.x = element_text(color = c(NA, rep("gray", 11))),
+    axis.ticks = element_blank(),
+    panel.ontop = FALSE,
+    panel.grid.major.y = element_blank(),
+    panel.grid.major.x = element_line(
+      size = 0.5,
+      color = c("lightgray", rep(NA, 11))
+    ),
     panel.background = element_rect(fill = NA),
     plot.margin = margin(t = 0, r = 0, b = 0, l = 0)
   ) +
@@ -117,7 +156,13 @@ vigia %>%
     aes(x = x, y = y, label = label),
     labels_df,
     size = 2, hjust = "middle", vjust = "center"
+  ) +
+  # https://ggplot2.tidyverse.org/reference/geom_text.html
+  geom_label(
+    aes(x = "jan.", y = 100, label = "jan."),
+    vjust = -0.25,
+    label.size = NA,
+    label.padding = unit(0.25, "lines"),
+    fill = "white",
+    label.r = unit(0, "lines")
   )
-
-# ggsave(here("radar_chart.svg"))
-# ggsave(here("radar_chart.png"))
