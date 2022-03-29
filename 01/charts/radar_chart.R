@@ -11,7 +11,8 @@ renv::use(
   "svglite@2.1.0",
   "ggtext@0.1.1",
   "ragg@1.2.2",
-  "cowplot@1.1.1"
+  "cowplot@1.1.1",
+  "patchwork@1.1.1"
 )
 
 library(readr)
@@ -27,6 +28,7 @@ library(forcats)
 library(ggtext)
 library(ragg)
 library(cowplot)
+library(patchwork)
 
 # https://tibble.tidyverse.org/articles/types.html
 # https://readr.tidyverse.org/reference/parse_datetime.html#format-specification
@@ -207,6 +209,12 @@ chart <- vigia %>%
   )
 chart
 # ggdraw(chart)
+
+# layout <- "
+# ####A
+# BBBBB
+# "
+# legend + chart + plot_layout(design = layout)
 
 # <br>
 ggsave(here("radar_chart.svg"))
