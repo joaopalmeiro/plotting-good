@@ -160,6 +160,8 @@ legend <- vigia_one_year %>%
   )
 legend
 
+# ggsave(here("legend.svg"))
+
 # 3.88 * 0.8
 # (11 / .pt) * 0.8
 
