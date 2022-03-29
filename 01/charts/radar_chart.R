@@ -9,7 +9,9 @@ renv::use(
   "see@0.6.9",
   "ricardo-bion/ggradar@568537ab057b333f628c1087d1a8b268eb490de8",
   "svglite@2.1.0",
-  "ggtext@0.1.1"
+  "ggtext@0.1.1",
+  "ragg@1.2.2",
+  "cowplot@1.1.1"
 )
 
 library(readr)
@@ -23,6 +25,8 @@ library(here)
 library(stringr)
 library(forcats)
 library(ggtext)
+library(ragg)
+library(cowplot)
 
 # https://tibble.tidyverse.org/articles/types.html
 # https://readr.tidyverse.org/reference/parse_datetime.html#format-specification
@@ -91,51 +95,9 @@ labels_df <- data.frame(
 )
 labels_df
 
-# https://easystats.github.io/see/reference/coord_radar.html
-# https://r-graph-gallery.com/web-circular-barplot-with-R-and-ggplot2.html
-# https://ggplot2.tidyverse.org/reference/geom_polygon.html
-
-vigia %>%
-  ggplot() +
-  geom_polygon(
-    aes(x = mes, y = resumo_infraestrutura, group = nome_infraestrutura),
-    fill = "lightblue",
-  ) +
-  geom_polygon(
-    aes(x = x, y = y, group = y),
-    gridlines_df,
-    color = "lightgray",
-    fill = NA,
-    size = 0.25
-  ) +
-  scale_y_continuous(breaks = c(25, 50, 75, 100), limits = c(0, 100)) +
-  coord_radar(start = -pi / 12) +
-  # coord_polar(start = -pi / 12) +
-  facet_wrap(vars(ano), ncol = 5, strip.position = "top") +
-  theme(
-    axis.title = element_blank(),
-    axis.text.y = element_blank(),
-    axis.ticks = element_blank(),
-    panel.ontop = FALSE,
-    panel.grid.major.y = element_blank(),
-    panel.grid.major.x = element_blank(),
-    panel.background = element_rect(fill = NA),
-    plot.margin = margin(t = 0, r = 0, b = 0, l = 0),
-    strip.background = element_blank(),
-    plot.subtitle = element_markdown()
-  ) +
-  labs(
-    title = "New plot title",
-    subtitle = "<span style = 'color:lightblue;'>Percentagem (%) mensal de água</span> armazenada na albufeira da **Vigia** entre 2012 e 2021",
-    caption = "Fonte: SNIRH (dados tratados pela DSSG) • Gráfico: João Palmeiro"
-  )
-
-# ggsave(here("radar_chart.svg"))
-# ggsave(here("radar_chart.png"))
-
 # strrep(" ", nchar(as.character(vigia$mes[1])))
 
-vigia_one_year %>%
+legend <- vigia_one_year %>%
   ggplot() +
   geom_polygon(
     aes(x = x, y = y, group = y),
@@ -196,8 +158,63 @@ vigia_one_year %>%
     size = (11 / .pt) * 0.8,
     color = "black"
   )
+legend
 
 # 3.88 * 0.8
 # (11 / .pt) * 0.8
 
+# https://easystats.github.io/see/reference/coord_radar.html
+# https://r-graph-gallery.com/web-circular-barplot-with-R-and-ggplot2.html
+# https://ggplot2.tidyverse.org/reference/geom_polygon.html
+
+chart <- vigia %>%
+  ggplot() +
+  geom_polygon(
+    aes(x = mes, y = resumo_infraestrutura, group = nome_infraestrutura),
+    fill = "lightblue",
+  ) +
+  geom_polygon(
+    aes(x = x, y = y, group = y),
+    gridlines_df,
+    color = "lightgray",
+    fill = NA,
+    size = 0.25
+  ) +
+  scale_y_continuous(breaks = c(25, 50, 75, 100), limits = c(0, 100)) +
+  coord_radar(start = -pi / 12) +
+  # coord_polar(start = -pi / 12) +
+  facet_wrap(vars(ano), ncol = 5, strip.position = "top") +
+  theme(
+    axis.title = element_blank(),
+    axis.text.y = element_blank(),
+    axis.ticks = element_blank(),
+    panel.ontop = FALSE,
+    panel.grid.major.y = element_blank(),
+    panel.grid.major.x = element_blank(),
+    panel.background = element_rect(fill = NA),
+    plot.margin = margin(t = 0, r = 0, b = 0, l = 0),
+    strip.background = element_blank(),
+    plot.subtitle = element_markdown()
+  ) +
+  labs(
+    title = "New plot title",
+    subtitle = "<span style = 'color:lightblue;'>Percentagem (%) mensal de água</span>armazenada na albufeira da **Vigia** entre 2012 e 2021",
+    caption = "Fonte: SNIRH (dados tratados pela DSSG) • Gráfico: João Palmeiro"
+  )
+chart
+
+# ggdraw(chart)
+
+# <br>
+# ggsave(here("radar_chart.svg"))
 # ggsave(here("radar_chart.png"))
+# https://ragg.r-lib.org/reference/agg_png.html
+# https://github.com/z3tt/TidyTuesday/blob/master/R/2021_22_MarioKart.Rmd
+# https://ragg.r-lib.org/index.html#use-ragg-in-rstudio
+ggsave(
+  here("radar_chart.png"),
+  unit = "px",
+  scaling = 1,
+  device = agg_png,
+  limitsize = FALSE
+)
