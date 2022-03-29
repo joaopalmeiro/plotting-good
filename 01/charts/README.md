@@ -8,6 +8,7 @@
 - `styler::style_dir()`.
 - `theme_get()$axis.text`.
 - `ggplot2::.pt`.
+- [Windi CSS colors](https://windicss.org/utilities/general/colors.html).
 
 ### Font sizes
 
