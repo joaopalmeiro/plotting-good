@@ -7,3 +7,4 @@
 - `R --version`
 - `styler::style_dir()`.
 - `theme_get()$axis.text`.
+- `ggplot2::.pt`.

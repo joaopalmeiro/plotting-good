@@ -46,12 +46,13 @@ vigia <- df %>%
   filter(
     nome_infraestrutura == "Vigia",
     medida == "percentagem",
-    data %within% interval(ymd("2021-01-01"), ymd("2021-12-01"))
+    data %within% interval(ymd("2020-01-01"), ymd("2021-12-01"))
   ) %>%
   # `system("locale -a")`
   # https://ciberduvidas.iscte-iul.pt/consultorio/perguntas/as-abreviaturas-dos-meses-dos-anos-segundo-o-novo-acordo-ortografico/30221
   mutate(mes = month(data, label = TRUE, locale = "pt_PT")) %>%
-  mutate(mes = fct_relabel(mes, convert_month))
+  mutate(mes = fct_relabel(mes, convert_month)) %>%
+  mutate(ano = year(data))
 vigia
 
 # https://github.com/ricardo-bion/ggradar/blob/master/R/ggradar.R#L69
@@ -70,15 +71,19 @@ vigia %>%
     label.gridline.max = FALSE
   )
 
+vigia_one_year <-
+  vigia %>% filter(ano == 2021)
+vigia_one_year
+
 gridlines_df <-
   data.frame(
-    x = rep(vigia$mes, 4),
+    x = rep(vigia_one_year$mes, 4),
     y = rep(c(25, 50, 75, 100), each = 12)
   )
 gridlines_df
 
 labels_df <- data.frame(
-  x = rep(vigia$mes[1], 4),
+  x = rep(vigia_one_year$mes[1], 4),
   y = c(25, 50, 75, 100),
   label = c("25%", "50%", "75%", "100%")
 )
@@ -104,6 +109,7 @@ vigia %>%
   scale_y_continuous(breaks = c(25, 50, 75, 100), limits = c(0, 100)) +
   coord_radar(start = -pi / 12) +
   # coord_polar(start = -pi / 12) +
+  facet_wrap(vars(ano)) +
   theme(
     axis.title = element_blank(),
     axis.text.y = element_blank(),
@@ -118,7 +124,13 @@ vigia %>%
 # ggsave(here("radar_chart.svg"))
 # ggsave(here("radar_chart.png"))
 
+# strrep(" ", nchar(as.character(vigia$mes[1])))
+
 vigia %>%
+  filter(ano == 2021)
+
+vigia %>%
+  filter(ano == 2021) %>%
   ggplot() +
   geom_polygon(
     aes(x = x, y = y, group = y),
@@ -128,11 +140,15 @@ vigia %>%
     size = 0.25
   ) +
   scale_y_continuous(limits = c(0, 100)) +
-  scale_x_discrete(labels = c("", as.character(vigia$mes[-1]))) +
+  # scale_x_discrete(labels = c("", as.character(vigia$mes[-1]))) +
   coord_radar(start = -pi / 12) +
   theme(
     axis.title = element_blank(),
     axis.text.y = element_blank(),
+    # https://ggplot2.tidyverse.org/articles/faq-customising.html#how-can-i-change-the-default-font-size-in-ggplot2
+    # https://ggplot2.tidyverse.org/reference/ggtheme.html (`base_size = 11`)
+    # https://github.com/tidyverse/ggplot2/blob/v3.3.5/R/theme-defaults.r#L113
+    # axis.text.x = element_text(size = 3.88 * 0.8 * .pt),
     # Warning:
     # axis.text.x = element_text(color = c(NA, rep("gray", 11))),
     axis.ticks = element_blank(),
@@ -145,19 +161,38 @@ vigia %>%
     panel.background = element_rect(fill = NA),
     plot.margin = margin(t = 0, r = 0, b = 0, l = 0)
   ) +
-  geom_text(
+  geom_label(
+    aes(x = mes[1], y = 100, label = mes[1]),
+    hjust = "middle",
+    label.size = NA,
+    label.r = unit(0, "lines"),
+    label.padding = unit(0.5, "lines"),
+    fill = "white",
+    size = (11 / .pt) * 0.8,
+    vjust = "bottom",
+    color = "white"
+  ) +
+  # https://ggplot2.tidyverse.org/reference/geom_text.html#alignment
+  # https://github.com/tidyverse/ggplot2/blob/v3.3.5/R/geom-label.R#L54
+  # https://github.com/tidyverse/ggplot2/blob/v3.3.5/R/geom-.r#L193
+  # https://ggplot2.tidyverse.org/articles/ggplot2-specs.html#font-size (mm)
+  # https://ggplot2.tidyverse.org/reference/element.html#arguments (pt)
+  geom_label(
     aes(x = x, y = y, label = label),
     labels_df,
-    size = 2,
-    hjust = "middle",
-    vjust = "center"
-  ) +
-  # https://ggplot2.tidyverse.org/reference/geom_text.html
-  geom_label(
-    aes(x = "jan.", y = 100, label = "jan."),
-    vjust = -0.25,
     label.size = NA,
+    label.r = unit(0, "lines"),
     label.padding = unit(0.25, "lines"),
     fill = "white",
-    label.r = unit(0, "lines")
+    hjust = "middle",
+    vjust = 0.75,
+    # vjust = "top",
+    # vjust = "center",
+    size = (11 / .pt) * 0.8,
+    color = "black"
   )
+
+# 3.88 * 0.8
+# (11 / .pt) * 0.8
+
+ggsave(here("radar_chart.png"))
