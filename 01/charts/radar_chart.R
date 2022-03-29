@@ -198,11 +198,10 @@ chart <- vigia %>%
   ) +
   labs(
     title = "New plot title",
-    subtitle = "<span style = 'color:lightblue;'>Percentagem (%) mensal de água</span>armazenada na albufeira da **Vigia** entre 2012 e 2021",
+    subtitle = "<span style = 'color:lightblue;'>Percentagem (%) mensal de água</span> armazenada na albufeira da **Vigia** entre 2012 e 2021",
     caption = "Fonte: SNIRH (dados tratados pela DSSG) • Gráfico: João Palmeiro"
   )
 chart
-
 # ggdraw(chart)
 
 # <br>
@@ -211,10 +210,10 @@ chart
 # https://ragg.r-lib.org/reference/agg_png.html
 # https://github.com/z3tt/TidyTuesday/blob/master/R/2021_22_MarioKart.Rmd
 # https://ragg.r-lib.org/index.html#use-ragg-in-rstudio
-ggsave(
-  here("radar_chart.png"),
-  unit = "px",
-  scaling = 1,
-  device = agg_png,
-  limitsize = FALSE
-)
+# ggsave(
+#   here("radar_chart.png"),
+#   unit = "px",
+#   scaling = 1,
+#   device = agg_png,
+#   limitsize = FALSE
+# )
