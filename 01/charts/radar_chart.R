@@ -180,7 +180,8 @@ chart <- vigia %>%
     gridlines_df,
     color = "lightgray",
     fill = NA,
-    size = 0.25
+    # size = 0.25
+    size = 1
   ) +
   scale_y_continuous(breaks = c(25, 50, 75, 100), limits = c(0, 100)) +
   coord_radar(start = -pi / 12) +
@@ -189,6 +190,7 @@ chart <- vigia %>%
   theme(
     axis.title = element_blank(),
     axis.text.y = element_blank(),
+    axis.text.x = element_text(size = 12),
     axis.ticks = element_blank(),
     panel.ontop = FALSE,
     panel.grid.major.y = element_blank(),
@@ -199,15 +201,15 @@ chart <- vigia %>%
     plot.subtitle = element_markdown()
   ) +
   labs(
-    title = "New plot title",
-    subtitle = "<span style = 'color:lightblue;'>Percentagem (%) mensal de água</span> armazenada na albufeira da **Vigia** entre 2012 e 2021",
-    caption = "Fonte: SNIRH (dados tratados pela DSSG) • Gráfico: João Palmeiro"
+    # title = "",
+    # subtitle = "<span style = 'color:lightblue;'>Percentagem (%) mensal de água</span> armazenada na albufeira da **Vigia** entre 2012 e 2021",
+    # caption = "Fonte: SNIRH (dados tratados pela DSSG) • Gráfico: João Palmeiro"
   )
 chart
 # ggdraw(chart)
 
 # <br>
-# ggsave(here("radar_chart.svg"))
+ggsave(here("radar_chart.svg"))
 # ggsave(here("radar_chart.png"))
 # https://ragg.r-lib.org/reference/agg_png.html
 # https://github.com/z3tt/TidyTuesday/blob/master/R/2021_22_MarioKart.Rmd
@@ -219,3 +221,34 @@ chart
 #   device = agg_png,
 #   limitsize = FALSE
 # )
+
+single_chart <- vigia %>%
+  filter(ano == 2021) %>%
+  ggplot() +
+  geom_polygon(
+    aes(x = mes, y = resumo_infraestrutura, group = nome_infraestrutura),
+    fill = "lightblue",
+  ) +
+  geom_polygon(
+    aes(x = x, y = y, group = y),
+    gridlines_df,
+    color = "lightgray",
+    fill = NA,
+    size = 0.25
+  ) +
+  scale_y_continuous(limits = c(0, 100)) +
+  coord_radar(start = -pi / 12) +
+  theme(
+    axis.title = element_blank(),
+    axis.text.y = element_blank(),
+    axis.text.x = element_text(size = 12),
+    axis.ticks = element_blank(),
+    panel.ontop = FALSE,
+    panel.grid.major.y = element_blank(),
+    panel.grid.major.x = element_blank(),
+    panel.background = element_rect(fill = NA),
+    plot.margin = margin(t = 0, r = 0, b = 0, l = 0)
+  )
+single_chart
+
+# ggsave(here("single_radar_chart.svg"))
