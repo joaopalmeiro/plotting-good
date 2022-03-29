@@ -192,7 +192,7 @@ chart <- vigia %>%
   theme(
     axis.title = element_blank(),
     axis.text.y = element_blank(),
-    axis.text.x = element_text(size = 12),
+    axis.text.x = element_text(size = 12), # pt
     axis.ticks = element_blank(),
     panel.ontop = FALSE,
     panel.grid.major.y = element_blank(),
