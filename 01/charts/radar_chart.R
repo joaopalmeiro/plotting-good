@@ -8,7 +8,8 @@ renv::use(
   "tidyverse@1.3.1",
   "see@0.6.9",
   "ricardo-bion/ggradar@568537ab057b333f628c1087d1a8b268eb490de8",
-  "svglite@2.1.0"
+  "svglite@2.1.0",
+  "ggtext@0.1.1"
 )
 
 library(readr)
@@ -21,6 +22,7 @@ library(tidyr)
 library(here)
 library(stringr)
 library(forcats)
+library(ggtext)
 
 # https://tibble.tidyverse.org/articles/types.html
 # https://readr.tidyverse.org/reference/parse_datetime.html#format-specification
@@ -46,7 +48,7 @@ vigia <- df %>%
   filter(
     nome_infraestrutura == "Vigia",
     medida == "percentagem",
-    data %within% interval(ymd("2020-01-01"), ymd("2021-12-01"))
+    data %within% interval(ymd("2012-01-01"), ymd("2021-12-01"))
   ) %>%
   # `system("locale -a")`
   # https://ciberduvidas.iscte-iul.pt/consultorio/perguntas/as-abreviaturas-dos-meses-dos-anos-segundo-o-novo-acordo-ortografico/30221
@@ -102,14 +104,14 @@ vigia %>%
   geom_polygon(
     aes(x = x, y = y, group = y),
     gridlines_df,
-    color = "lightgrey",
+    color = "lightgray",
     fill = NA,
     size = 0.25
   ) +
   scale_y_continuous(breaks = c(25, 50, 75, 100), limits = c(0, 100)) +
   coord_radar(start = -pi / 12) +
   # coord_polar(start = -pi / 12) +
-  facet_wrap(vars(ano)) +
+  facet_wrap(vars(ano), ncol = 5, strip.position = "top") +
   theme(
     axis.title = element_blank(),
     axis.text.y = element_blank(),
@@ -118,7 +120,14 @@ vigia %>%
     panel.grid.major.y = element_blank(),
     panel.grid.major.x = element_blank(),
     panel.background = element_rect(fill = NA),
-    plot.margin = margin(t = 0, r = 0, b = 0, l = 0)
+    plot.margin = margin(t = 0, r = 0, b = 0, l = 0),
+    strip.background = element_blank(),
+    plot.subtitle = element_markdown()
+  ) +
+  labs(
+    title = "New plot title",
+    subtitle = "<span style = 'color:lightblue;'>Percentagem (%) mensal de água</span> armazenada na albufeira da **Vigia** entre 2012 e 2021",
+    caption = "Fonte: SNIRH (dados tratados pela DSSG) • Gráfico: João Palmeiro"
   )
 
 # ggsave(here("radar_chart.svg"))
@@ -126,16 +135,12 @@ vigia %>%
 
 # strrep(" ", nchar(as.character(vigia$mes[1])))
 
-vigia %>%
-  filter(ano == 2021)
-
-vigia %>%
-  filter(ano == 2021) %>%
+vigia_one_year %>%
   ggplot() +
   geom_polygon(
     aes(x = x, y = y, group = y),
     gridlines_df,
-    color = "lightgrey",
+    color = "lightgray",
     fill = NA,
     size = 0.25
   ) +
@@ -195,4 +200,4 @@ vigia %>%
 # 3.88 * 0.8
 # (11 / .pt) * 0.8
 
-ggsave(here("radar_chart.png"))
+# ggsave(here("radar_chart.png"))
