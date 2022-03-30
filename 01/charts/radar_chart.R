@@ -175,12 +175,12 @@ chart <- vigia %>%
   ggplot() +
   geom_polygon(
     aes(x = mes, y = resumo_infraestrutura, group = nome_infraestrutura),
-    fill = "lightblue",
+    fill = "#0284C7",
   ) +
   geom_polygon(
     aes(x = x, y = y, group = y),
     gridlines_df,
-    color = "lightgray",
+    color = "#E2E8F0",
     fill = NA,
     # size = 0.25
     size = 1
@@ -192,7 +192,10 @@ chart <- vigia %>%
   theme(
     axis.title = element_blank(),
     axis.text.y = element_blank(),
-    axis.text.x = element_text(size = 12), # pt
+    axis.text.x = element_text(
+      size = 12, # pt
+      color = "#475569"
+    ),
     axis.ticks = element_blank(),
     panel.ontop = FALSE,
     panel.grid.major.y = element_blank(),
