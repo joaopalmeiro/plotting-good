@@ -13,6 +13,7 @@
 - [Bottom Right Corner](https://www.compart.com/en/unicode/U+231F).
 - [Top Left Corner](https://www.compart.com/en/unicode/U+231C).
 - [Line Length](https://www.figma.com/community/plugin/875546357676392881/Line-Length) plugin.
+- ALT: `Em 2012, bem como entre 2016 e 2020, a albufeira da Vigia mal chegou a 50% da sua capacidade hídrica. Entre 2013 e 2015, bem como em 2021, a percentagem mensal de água armazenada foi, pelo menos, superior a 50%, com vários meses entre 75% e 100%.`.
 
 ### Font sizes
 
