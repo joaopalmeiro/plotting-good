@@ -220,7 +220,7 @@ chart
 # legend + chart + plot_layout(design = layout)
 
 # <br>
-ggsave(here("radar_chart.svg"))
+# ggsave(here("radar_chart.svg"))
 # ggsave(here("radar_chart.png"))
 # https://ragg.r-lib.org/reference/agg_png.html
 # https://github.com/z3tt/TidyTuesday/blob/master/R/2021_22_MarioKart.Rmd
