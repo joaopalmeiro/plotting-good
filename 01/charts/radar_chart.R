@@ -104,9 +104,10 @@ legend <- vigia_one_year %>%
   geom_polygon(
     aes(x = x, y = y, group = y),
     gridlines_df,
-    color = "lightgray",
+    color = "#E2E8F0",
     fill = NA,
-    size = 0.25
+    # size = 0.25
+    size = 1
   ) +
   scale_y_continuous(limits = c(0, 100)) +
   # scale_x_discrete(labels = c("", as.character(vigia$mes[-1]))) +
@@ -120,27 +121,32 @@ legend <- vigia_one_year %>%
     # axis.text.x = element_text(size = 3.88 * 0.8 * .pt),
     # Warning:
     # axis.text.x = element_text(color = c(NA, rep("gray", 11))),
+    axis.text.x = element_text(
+      size = 12, # pt
+      color = "#475569"
+    ),
     axis.ticks = element_blank(),
     panel.ontop = FALSE,
     panel.grid.major.y = element_blank(),
     panel.grid.major.x = element_line(
-      size = 0.5,
-      color = c("lightgray", rep(NA, 11))
+      # size = 0.5,
+      size = 1,
+      color = c("#475569", rep(NA, 11))
     ),
     panel.background = element_rect(fill = NA),
     plot.margin = margin(t = 0, r = 0, b = 0, l = 0)
   ) +
-  geom_label(
-    aes(x = mes[1], y = 100, label = mes[1]),
-    hjust = "middle",
-    label.size = NA,
-    label.r = unit(0, "lines"),
-    label.padding = unit(0.5, "lines"),
-    fill = "white",
-    size = (11 / .pt) * 0.8,
-    vjust = "bottom",
-    color = "white"
-  ) +
+  # geom_label(
+  #   aes(x = mes[1], y = 100, label = mes[1]),
+  #   hjust = "middle",
+  #   label.size = NA,
+  #   label.r = unit(0, "lines"),
+  #   label.padding = unit(0.5, "lines"),
+  #   fill = "white",
+  #   size = (11 / .pt) * 0.8,
+  #   vjust = "bottom",
+  #   color = "white"
+  # ) +
   # https://ggplot2.tidyverse.org/reference/geom_text.html#alignment
   # https://github.com/tidyverse/ggplot2/blob/v3.3.5/R/geom-label.R#L54
   # https://github.com/tidyverse/ggplot2/blob/v3.3.5/R/geom-.r#L193
@@ -157,8 +163,9 @@ legend <- vigia_one_year %>%
     vjust = 0.75,
     # vjust = "top",
     # vjust = "center",
-    size = (11 / .pt) * 0.8,
-    color = "black"
+    # size = (11 / .pt) * 0.8,
+    size = 12 / .pt,
+    color = "#475569"
   )
 legend
 

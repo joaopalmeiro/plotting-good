@@ -4,17 +4,21 @@
 
 ## Notes
 
+- [Figma](https://www.figma.com/file/pn4SRRD9gUnYrNq7S9SbRh/radar_chart?node-id=0%3A1).
 - `R --version`
 - `styler::style_dir()`.
 - `theme_get()$axis.text`.
 - `ggplot2::.pt`.
 - [Windi CSS colors](https://windicss.org/utilities/general/colors.html).
+- [Bottom Right Corner](https://www.compart.com/en/unicode/U+231F).
+- [Top Left Corner](https://www.compart.com/en/unicode/U+231C).
+- [Line Length](https://www.figma.com/community/plugin/875546357676392881/Line-Length) plugin.
 
 ### Font sizes
 
 > [Windi CSS](https://windicss.org/utilities/general/typography.html#font-size)
 
-- `xs`: 0.75rem \* 16px = 12px (1em = 16px)
+- `xs`: 0.75rem \* 16px (1em = 16px) = 12px
 - `sm`: 14px
 - `base`: 16px
 - `lg`: 18px
