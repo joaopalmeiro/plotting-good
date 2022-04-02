@@ -98,10 +98,13 @@ vigia_to_plot <- vigia %>%
   ))
 vigia_to_plot
 
+black_color <- "black"
+gray_color <- "gray"
+
 vigia_to_plot %>%
   ggplot(aes(x = mes, y = resumo_infraestrutura, label = annotation)) +
   # geom_point() +
-  geom_vline(aes(xintercept = mes), colour = "gray") +
+  geom_vline(aes(xintercept = mes), colour = gray_color) +
   # Right:
   geom_spoke(
     angle = 0,
@@ -123,7 +126,7 @@ vigia_to_plot %>%
     # min.segment.length = 0,
     # segment.size = 0.25,
     size = 12 / .pt,
-    colour = "black"
+    colour = black_color
   ) +
   scale_y_continuous(
     breaks = c(0, 25, 50, 75, 100),
@@ -147,14 +150,14 @@ vigia_to_plot %>%
     # ),
     axis.text.x = element_text(
       size = 14,
-      colour = "black"
+      colour = black_color
     ),
     axis.text.y = element_text(
       size = 12,
-      colour = "black"
+      colour = black_color
     ),
     panel.grid.major.y = element_line(
-      colour = "gray",
+      colour = gray_color,
       linetype = "dashed"
     ),
     panel.grid.major.x = element_blank(),
