@@ -98,13 +98,24 @@ vigia_to_plot <- vigia %>%
   ))
 vigia_to_plot
 
+vigia_to_plot %>%
+  filter(resumo_infraestrutura <= 25) %>%
+  group_by(mes) %>%
+  tally()
+
 # https://windicss.org/utilities/general/colors.html
 
 black_color <- "#44403c"
 gray_color <- "#e7e5e4"
 
 vigia_to_plot %>%
-  ggplot(aes(x = mes, y = resumo_infraestrutura, label = annotation)) +
+  ggplot(
+    aes(
+      x = mes,
+      y = resumo_infraestrutura,
+      label = annotation
+    )
+  ) +
   # geom_point() +
   geom_vline(aes(xintercept = mes), colour = gray_color) +
   # Right:
@@ -124,12 +135,12 @@ vigia_to_plot %>%
     show.legend = FALSE,
     size = 0.5
   ) +
-  geom_text_repel(
-    # min.segment.length = 0,
-    # segment.size = 0.25,
-    size = 12 / .pt,
-    colour = black_color
-  ) +
+  # geom_text_repel(
+  #   min.segment.length = 0,
+  #   segment.size = 0.25,
+  #   size = 12 / .pt,
+  #   colour = black_color
+  # ) +
   scale_y_continuous(
     breaks = c(0, 25, 50, 75, 100),
     limits = c(0, 100),
@@ -169,6 +180,9 @@ vigia_to_plot %>%
 px_per_inch <- 72
 width <- 667 / px_per_inch
 height <- 375 / px_per_inch
+
+# https://www.ine.pt/xportal/xmain?xpid=INE&xpgid=ine_indicadores&indOcorrCod=0007500&conte&xlang=pt
+# https://www.flip.pt/FLiP-On-line/Corrector-ortografico-e-sintactico
 
 ggsave(
   here("strip_chart.svg"),
