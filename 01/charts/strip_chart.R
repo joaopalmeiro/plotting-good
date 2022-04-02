@@ -4,7 +4,8 @@ renv::use(
   "tidyverse@1.3.1",
   "svglite@2.1.0",
   "scico@1.3.0",
-  "scales@1.1.1"
+  "scales@1.1.1",
+  "ggrepel@0.9.1"
 )
 
 library(readr)
@@ -16,6 +17,7 @@ library(forcats)
 library(scico)
 library(scales)
 library(here)
+library(ggrepel)
 
 df <- read_csv(
   "https://raw.githubusercontent.com/dssgPT/Plotting-Good-DSSG/main/desafios/001_Seca_Em_Portugal_SNIRH/snirh_clean.csv",
@@ -44,6 +46,8 @@ vigia <- df %>%
   mutate(ano = year(data))
 vigia
 vigia %>% glimpse()
+n_distinct(vigia$nome_infraestrutura)
+n_distinct(vigia$medida)
 
 missing_vigia <- vigia %>%
   filter(is.na(resumo_infraestrutura))
@@ -72,6 +76,7 @@ deg2rad <- function(deg) {
 
 # https://dplyr.tidyverse.org/reference/mutate.html
 # https://www.tidyverse.org/blog/2020/08/taking-control-of-plot-scaling/
+# https://css-tricks.com/footnote-characters/
 
 vigia_to_plot <- vigia %>%
   select(resumo_infraestrutura, ano, mes) %>%
@@ -85,11 +90,16 @@ vigia_to_plot <- vigia %>%
     resumo_infraestrutura == max(resumo_infraestrutura),
     0.5,
     0.3
+  )) %>%
+  mutate(annotation = case_when(
+    mes == "jul." & resumo_infraestrutura == min(resumo_infraestrutura) ~ "Mínimo mensal",
+    mes == "jul." & resumo_infraestrutura == max(resumo_infraestrutura) ~ "Máximo mensal",
+    TRUE ~ ""
   ))
 vigia_to_plot
 
 vigia_to_plot %>%
-  ggplot(aes(x = mes, y = resumo_infraestrutura)) +
+  ggplot(aes(x = mes, y = resumo_infraestrutura, label = annotation)) +
   # geom_point() +
   geom_vline(aes(xintercept = mes), colour = "gray") +
   # Right:
@@ -109,6 +119,12 @@ vigia_to_plot %>%
     show.legend = FALSE,
     size = 0.5
   ) +
+  geom_text_repel(
+    # min.segment.length = 0,
+    # segment.size = 0.25,
+    size=12 / .pt,
+    colour = "black"
+    ) +
   scale_y_continuous(
     breaks = c(0, 25, 50, 75, 100),
     limits = c(0, 100),
@@ -126,7 +142,7 @@ vigia_to_plot %>%
     axis.ticks = element_blank(),
     axis.title = element_blank(),
     axis.text = element_text(
-      size = 12,
+      size = 14,
       colour = "black"
     ),
     panel.grid.major.y = element_line(
