@@ -98,8 +98,10 @@ vigia_to_plot <- vigia %>%
   ))
 vigia_to_plot
 
-black_color <- "black"
-gray_color <- "gray"
+# https://windicss.org/utilities/general/colors.html
+
+black_color <- "#44403c"
+gray_color <- "#e7e5e4"
 
 vigia_to_plot %>%
   ggplot(aes(x = mes, y = resumo_infraestrutura, label = annotation)) +
