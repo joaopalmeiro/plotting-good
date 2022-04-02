@@ -65,20 +65,26 @@ deg2rad <- function(deg) {
   (deg * pi) / (180)
 }
 
-vigia %>%
+# HERE
+vigia_to_plot <- vigia
+
+vigia_to_plot %>%
   ggplot(aes(x = ano, y = resumo_infraestrutura)) +
   # geom_point() +
   geom_vline(aes(xintercept = ano), colour = "gray") +
   geom_spoke(
     angle = 0,
-    radius = 0.5,
+    # radius = 0.5,
+    # radius = 1,
+    radius = 0.3,
     aes(colour = resumo_infraestrutura),
     show.legend = FALSE,
     size = 0.5
   ) +
   geom_spoke(
     angle = deg2rad(180),
-    radius = 0.5,
+    # radius = 0.5,
+    radius = 0.3,
     aes(colour = resumo_infraestrutura),
     show.legend = FALSE,
     size = 0.5
