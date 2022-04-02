@@ -122,9 +122,9 @@ vigia_to_plot %>%
   geom_text_repel(
     # min.segment.length = 0,
     # segment.size = 0.25,
-    size=12 / .pt,
+    size = 12 / .pt,
     colour = "black"
-    ) +
+  ) +
   scale_y_continuous(
     breaks = c(0, 25, 50, 75, 100),
     limits = c(0, 100),
@@ -141,8 +141,16 @@ vigia_to_plot %>%
     panel.background = element_rect(fill = NA),
     axis.ticks = element_blank(),
     axis.title = element_blank(),
-    axis.text = element_text(
+    # axis.text = element_text(
+    #   size = 14,
+    #   colour = "black"
+    # ),
+    axis.text.x = element_text(
       size = 14,
+      colour = "black"
+    ),
+    axis.text.y = element_text(
+      size = 12,
       colour = "black"
     ),
     panel.grid.major.y = element_line(
