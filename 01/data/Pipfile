@@ -7,6 +7,11 @@ name = "pypi"
 pandas = "*"
 jupyterlab = "*"
 black = {extras = ["jupyter"], version = "*"}
+pyproj = "*"
+geopandas = "*"
+matplotlib = "*"
+dataprep = "*"
+pycairo = "*"
 
 [dev-packages]
 

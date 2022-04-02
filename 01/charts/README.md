@@ -16,6 +16,9 @@
 - [Line Length](https://www.figma.com/community/plugin/875546357676392881/Line-Length) plugin.
 - ALT: `Em 2012, bem como entre 2016 e 2020, a albufeira da Vigia mal chegou a 50% da sua capacidade hídrica. Entre 2013 e 2015, bem como em 2021, a percentagem mensal de água armazenada foi, pelo menos, superior a 50%, com vários meses entre 75% e 100%.`.
 - [Sketch Elements Brushes Set](https://www.figma.com/community/file/1088571331676113926) by Streamline.
+- [GADM data](https://gadm.org/download_country.html).
+  - Portugal: `The coordinate reference system is longitude/latitude and the WGS84 datum.`
+- [Distritos de Portugal](https://dados.gov.pt/en/datasets/distritos-de-portugal/).
 
 ### Font sizes
 
