@@ -60,39 +60,44 @@ n_anos
 # https://www.fabiocrameri.ch/colourmaps/
 # https://ggplot2.tidyverse.org/reference/aes_linetype_size_shape.html
 # https://altair-viz.github.io/gallery/strip_plot.html
+# https://ggplot2.tidyverse.org/reference/sec_axis.html
 
 deg2rad <- function(deg) {
   (deg * pi) / (180)
 }
 
-# HERE
-vigia_to_plot <- vigia
+vigia_to_plot <- vigia %>%
+  select(resumo_infraestrutura, ano, mes) %>%
+  mutate(left_spoke = 0.3) %>%
+  mutate(right_spoke = 0.3)
+vigia_to_plot
 
 vigia_to_plot %>%
-  ggplot(aes(x = ano, y = resumo_infraestrutura)) +
+  ggplot(aes(x = mes, y = resumo_infraestrutura)) +
   # geom_point() +
-  geom_vline(aes(xintercept = ano), colour = "gray") +
+  geom_vline(aes(xintercept = mes), colour = "gray") +
+  # Right:
   geom_spoke(
     angle = 0,
     # radius = 0.5,
     # radius = 1,
-    radius = 0.3,
-    aes(colour = resumo_infraestrutura),
+    # radius = 0.3,
+    aes(colour = resumo_infraestrutura, radius = right_spoke),
     show.legend = FALSE,
     size = 0.5
   ) +
+  # Left:
   geom_spoke(
     angle = deg2rad(180),
-    # radius = 0.5,
-    radius = 0.3,
-    aes(colour = resumo_infraestrutura),
+    aes(colour = resumo_infraestrutura, radius = left_spoke),
     show.legend = FALSE,
     size = 0.5
   ) +
   scale_y_continuous(
     breaks = c(0, 25, 50, 75, 100),
     limits = c(0, 100),
-    labels = label_percent(scale = 1)
+    labels = label_percent(scale = 1),
+    sec.axis = dup_axis()
   ) +
   scale_colour_scico(
     palette = "lapaz",
