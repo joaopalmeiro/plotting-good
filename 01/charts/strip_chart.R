@@ -104,6 +104,7 @@ vigia_to_plot %>%
   tally()
 
 # https://windicss.org/utilities/general/colors.html
+# https://windicss.org/utilities/general/typography.html#line-height (1.5 or 150%)
 
 black_color <- "#44403c"
 gray_color <- "#e7e5e4"
