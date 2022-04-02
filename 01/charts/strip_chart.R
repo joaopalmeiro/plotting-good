@@ -71,6 +71,7 @@ deg2rad <- function(deg) {
 }
 
 # https://dplyr.tidyverse.org/reference/mutate.html
+# https://www.tidyverse.org/blog/2020/08/taking-control-of-plot-scaling/
 
 vigia_to_plot <- vigia %>%
   select(resumo_infraestrutura, ano, mes) %>%
@@ -136,8 +137,12 @@ vigia_to_plot %>%
     panel.grid.minor = element_blank()
   )
 
-ggsave(here("strip_chart.svg"),
-  width = 667,
-  height = 375,
-  units = "px"
+px_per_inch <- 72
+width <- 667 / px_per_inch
+height <- 375 / px_per_inch
+
+ggsave(
+  here("strip_chart.svg"),
+  width = width,
+  height = height
 )
