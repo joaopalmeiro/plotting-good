@@ -66,10 +66,21 @@ deg2rad <- function(deg) {
   (deg * pi) / (180)
 }
 
+# https://dplyr.tidyverse.org/reference/mutate.html
+
 vigia_to_plot <- vigia %>%
   select(resumo_infraestrutura, ano, mes) %>%
-  mutate(left_spoke = 0.3) %>%
-  mutate(right_spoke = 0.3)
+  group_by(mes) %>%
+  mutate(left_spoke = if_else(
+    resumo_infraestrutura == min(resumo_infraestrutura),
+    0.5,
+    0.3
+  )) %>%
+  mutate(right_spoke = if_else(
+    resumo_infraestrutura == max(resumo_infraestrutura),
+    0.5,
+    0.3
+  ))
 vigia_to_plot
 
 vigia_to_plot %>%
