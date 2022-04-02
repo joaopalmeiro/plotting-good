@@ -29,14 +29,18 @@ df <- read_csv(
 )
 df
 
+convert_month <- function(x) {
+  paste0(str_to_lower(x), ".")
+}
+
 vigia <- df %>%
   filter(
     nome_infraestrutura == "Vigia",
     medida == "percentagem",
     data %within% interval(ymd("2000-01-01"), ymd("2021-12-01"))
   ) %>%
-  mutate(mes = month(data, label = TRUE, abbr = FALSE, locale = "pt_PT")) %>%
-  mutate(mes = fct_relabel(mes, str_to_lower)) %>%
+  mutate(mes = month(data, label = TRUE, abbr = TRUE, locale = "pt_PT")) %>%
+  mutate(mes = fct_relabel(mes, convert_month)) %>%
   mutate(ano = year(data))
 vigia
 vigia %>% glimpse()
@@ -132,4 +136,8 @@ vigia_to_plot %>%
     panel.grid.minor = element_blank()
   )
 
-# ggsave(here("strip_plot.svg"))
+ggsave(here("strip_chart.svg"),
+  width = 667,
+  height = 375,
+  units = "px"
+)
