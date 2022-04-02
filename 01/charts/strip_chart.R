@@ -99,7 +99,7 @@ vigia_to_plot <- vigia %>%
 vigia_to_plot
 
 vigia_to_plot %>%
-  filter(resumo_infraestrutura <= 25) %>%
+  filter(resumo_infraestrutura < 25) %>%
   group_by(mes) %>%
   tally()
 
