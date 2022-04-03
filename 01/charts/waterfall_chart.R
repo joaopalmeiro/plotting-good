@@ -38,15 +38,18 @@ convert_month <- function(x) {
 # https://r-charts.com/flow/waterfall-chart/
 # https://dplyr.tidyverse.org/reference/case_when.html
 
+year <- 2021
+
 vigia <- df %>%
   filter(
     nome_infraestrutura == "Vigia",
     medida == "percentagem",
-    data %within% interval(ymd("2021-01-01"), ymd("2021-12-01"))
+    data %within% interval(ymd(paste0(year, "-01-01")), ymd(paste0(year, "-12-01")))
   ) %>%
   mutate(mes = month(data, label = TRUE, abbr = TRUE, locale = "pt_PT")) %>%
   mutate(mes = fct_relabel(mes, convert_month)) %>%
-  mutate(ano = year(data))
+  mutate(ano = year(data)) %>%
+  arrange(data)
 vigia
 
 vigia_to_plot <- vigia %>%
