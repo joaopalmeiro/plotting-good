@@ -77,8 +77,8 @@ vigia_to_plot %>%
     draw_axis.x = NA
     # draw_axis.x = "behind"
   ) +
-  geom_hline(yintercept = 0) +
-  geom_hline(yintercept = 100) +
+  # geom_hline(yintercept = 0) +
+  # geom_hline(yintercept = 100) +
   scale_y_continuous(
     breaks = c(0, 50, 100),
     limits = c(0, 100),
