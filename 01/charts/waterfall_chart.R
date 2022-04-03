@@ -56,7 +56,12 @@ vigia_to_plot <- vigia %>%
     row_number() == 1 ~ "green",
     sign(waterfall) == 1 ~ "blue",
     sign(waterfall) == -1 ~ "red"
-  ))
+  )) %>%
+  mutate(mes = ifelse(row_number() == 1, paste0(mes, "*"), as.character(mes)))
+vigia_to_plot %>% glimpse()
+
+last_label <- paste0(tail(vigia_to_plot, 1)$mes, "*")
+last_label
 
 vigia_to_plot %>%
   select(mes, waterfall) %>%
@@ -67,15 +72,20 @@ vigia_to_plot %>%
     linetype = "solid",
     total_rect_color = "orange",
     total_rect_text_color = "black",
-    total_axis_text = "dez.",
+    # total_axis_text = "dez.",
+    # total_axis_text = "",
+    total_axis_text = last_label,
     fill_by_sign = FALSE,
     fill_colours = vigia_to_plot$bar_color,
     rect_border = NA,
     # rect_border = "black",
     # https://github.com/HughParsonage/waterfalls/blob/master/R/waterfall.R#L223
     rect_text_size = (12 / .pt) * (5 / 14),
-    draw_axis.x = NA
-    # draw_axis.x = "behind"
+    draw_axis.x = NA,
+    # draw_axis.x = "behind",
+    # rect_width = 0.7
+    # rect_width = 1
+    rect_width = 0.95
   ) +
   # geom_hline(yintercept = 0) +
   # geom_hline(yintercept = 100) +
@@ -95,7 +105,8 @@ vigia_to_plot %>%
     ),
     axis.text.y = element_text(
       size = 12,
-      colour = "black"
+      colour = "black",
+      # hjust = 0.5
     ),
     panel.grid.major.y = element_line(
       colour = "gray",
@@ -108,7 +119,15 @@ vigia_to_plot %>%
     panel.grid.minor = element_blank()
   )
 
-ggsave(here("waterfall_chart.svg"))
+px_per_inch <- 72
+width <- 568 / px_per_inch
+height <- 320 / px_per_inch
+
+ggsave(
+  here("waterfall_chart.svg"),
+  width = width,
+  height = height
+)
 
 # vigia_to_plot <- vigia %>%
 #   mutate(start = lag(resumo_infraestrutura, default = 0))
