@@ -38,7 +38,7 @@ convert_month <- function(x) {
 # https://r-charts.com/flow/waterfall-chart/
 # https://dplyr.tidyverse.org/reference/case_when.html
 
-year <- 2021
+year <- 2019
 
 vigia <- df %>%
   filter(
@@ -88,7 +88,9 @@ vigia_to_plot %>%
     # draw_axis.x = "behind",
     # rect_width = 0.7
     # rect_width = 1
-    rect_width = 0.95
+    rect_width = 0.95,
+    # https://github.com/HughParsonage/waterfalls/blob/master/R/waterfall.R#L43
+    put_rect_text_outside_when_value_below = 0.25 * (max(cumsum(vigia_to_plot$waterfall)) - min(cumsum(vigia_to_plot$waterfall))),
   ) +
   # geom_hline(yintercept = 0) +
   # geom_hline(yintercept = 100) +
