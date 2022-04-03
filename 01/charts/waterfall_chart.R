@@ -33,6 +33,8 @@ convert_month <- function(x) {
 
 # https://dplyr.tidyverse.org/reference/lead-lag.html
 # https://github.com/HughParsonage/waterfalls/blob/master/R/waterfall.R#L38
+# https://r-charts.com/flow/waterfall-chart/
+# https://dplyr.tidyverse.org/reference/case_when.html
 
 vigia <- df %>%
   filter(
@@ -47,11 +49,26 @@ vigia
 
 vigia_to_plot <- vigia %>%
   mutate(waterfall = resumo_infraestrutura - lag(resumo_infraestrutura)) %>%
-  mutate(waterfall = coalesce(waterfall, resumo_infraestrutura))
+  mutate(waterfall = coalesce(waterfall, resumo_infraestrutura)) %>%
+  mutate(bar_color = case_when(
+    row_number() == 1 ~ "green",
+    sign(waterfall) == 1 ~ "blue",
+    sign(waterfall) == -1 ~ "red"
+  ))
 
 vigia_to_plot %>%
   select(mes, waterfall) %>%
-  waterfall(calc_total = TRUE)
+  waterfall(
+    calc_total = TRUE,
+    draw_lines = TRUE,
+    linetype = "solid",
+    total_rect_color = "orange",
+    total_rect_text_color = "white",
+    fill_by_sign = FALSE,
+    fill_colours = vigia_to_plot$bar_color
+  )
+
+ggsave(here("waterfall_chart.svg"))
 
 # vigia_to_plot <- vigia %>%
 #   mutate(start = lag(resumo_infraestrutura, default = 0))
@@ -59,5 +76,3 @@ vigia_to_plot %>%
 # vigia_to_plot %>%
 #   ggplot(aes(x=mes, y=start)) +
 #   geom_segment(aes(xend = mes, yend = resumo_infraestrutura), size=10)
-
-# ggsave(here("waterfall_chart.svg"))
