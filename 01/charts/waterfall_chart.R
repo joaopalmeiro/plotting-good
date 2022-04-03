@@ -48,7 +48,7 @@ vigia <- df %>%
 vigia
 
 vigia_to_plot <- vigia %>%
-  mutate(waterfall = resumo_infraestrutura - lag(resumo_infraestrutura)) %>%
+  mutate(waterfall = round(resumo_infraestrutura - lag(resumo_infraestrutura), 1)) %>%
   mutate(waterfall = coalesce(waterfall, resumo_infraestrutura)) %>%
   mutate(bar_color = case_when(
     row_number() == 1 ~ "green",
