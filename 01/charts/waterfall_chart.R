@@ -3,7 +3,8 @@ renv::use(
   "here@1.0.1",
   "tidyverse@1.3.1",
   "svglite@2.1.0",
-  "waterfalls@0.1.2"
+  "waterfalls@0.1.2",
+  "scales@1.1.1"
 )
 
 library(readr)
@@ -14,6 +15,7 @@ library(stringr)
 library(forcats)
 library(ggplot2)
 library(waterfalls)
+library(scales)
 
 df <- read_csv(
   "https://raw.githubusercontent.com/dssgPT/Plotting-Good-DSSG/main/desafios/001_Seca_Em_Portugal_SNIRH/snirh_clean.csv",
@@ -63,9 +65,41 @@ vigia_to_plot %>%
     draw_lines = TRUE,
     linetype = "solid",
     total_rect_color = "orange",
-    total_rect_text_color = "white",
+    total_rect_text_color = "black",
+    total_axis_text = "dez.",
     fill_by_sign = FALSE,
-    fill_colours = vigia_to_plot$bar_color
+    fill_colours = vigia_to_plot$bar_color,
+    # rect_border = NA,
+    rect_border = "black",
+    # https://github.com/HughParsonage/waterfalls/blob/master/R/waterfall.R#L223
+    rect_text_size = (12 / .pt) * (5 / 14)
+  ) + scale_y_continuous(
+    breaks = c(0, 50, 100),
+    limits = c(0, 100),
+    labels = label_percent(scale = 1),
+    # sec.axis = dup_axis()
+  ) + theme(
+    plot.margin = margin(t = 0, r = 0, b = 0, l = 0),
+    panel.background = element_rect(fill = NA),
+    axis.ticks = element_blank(),
+    axis.title = element_blank(),
+    axis.text.x = element_text(
+      size = 14,
+      colour = "black"
+    ),
+    axis.text.y = element_text(
+      size = 12,
+      colour = "black"
+    ),
+    panel.grid.major.y = element_line(
+      colour = "gray",
+      linetype = "solid"
+    ),
+    panel.grid.major.x = element_line(
+      colour = "lightgray",
+      linetype = "dashed"
+    ),
+    panel.grid.minor = element_blank()
   )
 
 ggsave(here("waterfall_chart.svg"))
