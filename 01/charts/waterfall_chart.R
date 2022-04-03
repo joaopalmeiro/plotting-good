@@ -62,18 +62,24 @@ vigia_to_plot %>%
   select(mes, waterfall) %>%
   waterfall(
     calc_total = TRUE,
-    draw_lines = TRUE,
+    # draw_lines = TRUE,
+    draw_lines = FALSE,
     linetype = "solid",
     total_rect_color = "orange",
     total_rect_text_color = "black",
     total_axis_text = "dez.",
     fill_by_sign = FALSE,
     fill_colours = vigia_to_plot$bar_color,
-    # rect_border = NA,
-    rect_border = "black",
+    rect_border = NA,
+    # rect_border = "black",
     # https://github.com/HughParsonage/waterfalls/blob/master/R/waterfall.R#L223
-    rect_text_size = (12 / .pt) * (5 / 14)
-  ) + scale_y_continuous(
+    rect_text_size = (12 / .pt) * (5 / 14),
+    draw_axis.x = NA
+    # draw_axis.x = "behind"
+  ) +
+  geom_hline(yintercept = 0) +
+  geom_hline(yintercept = 100) +
+  scale_y_continuous(
     breaks = c(0, 50, 100),
     limits = c(0, 100),
     labels = label_percent(scale = 1),
