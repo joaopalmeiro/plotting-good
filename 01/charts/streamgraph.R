@@ -43,6 +43,10 @@ df_to_plot <- df %>%
     medida == "metro_cubico",
     data %within% interval(ymd(paste0(start_year, "-01-01")), ymd(paste0(end_year, "-12-01")))
   ) %>%
+  mutate(annotation = case_when(
+    year(data) == end_year & month(data) == 12 ~ nome_infraestrutura,
+    TRUE ~ ""
+  )) %>%
   arrange(data, nome_infraestrutura)
 df_to_plot
 
@@ -57,12 +61,19 @@ missing_df_to_plot %>% glimpse()
 # https://ggplot2.tidyverse.org/reference/geom_contour.html
 # https://github.com/davidsjoberg/ggstream/blob/master/R/geom_stream.R#L284
 
-df_to_plot %>% ggplot(aes(x = data, y = resumo_infraestrutura, fill = nome_infraestrutura, label = nome_infraestrutura)) +
+df_to_plot %>%
+  ggplot(aes(
+    x = data,
+    y = resumo_infraestrutura,
+    fill = nome_infraestrutura,
+    label = annotation
+  )) +
   geom_stream(
     type = "mirror",
     # geom = "contour",
     geom = "contour_filled",
     color = "lightgray",
+    show.legend = FALSE,
     size = 1.25,
     # extra_span = 0.1,
     # bw = 1
@@ -71,11 +82,11 @@ df_to_plot %>% ggplot(aes(x = data, y = resumo_infraestrutura, fill = nome_infra
   geom_stream(
     type = "mirror",
     geom = "polygon",
+    show.legend = FALSE,
     # extra_span = 0.1,
     # bw = 1
     # bw = 0.1
   ) +
-  geom_text_repel(direction = "y", hjust = "left") +
   theme(
     plot.margin = margin(t = 0, r = 0, b = 0, l = 0),
     panel.background = element_rect(fill = NA),
