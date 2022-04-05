@@ -54,19 +54,32 @@ vigia
 
 # https://pt.wikipedia.org/wiki/Porcentagem#Ponto_percentual
 # https://en.wikipedia.org/wiki/Percentage_point
+# https://pt.wiktionary.org/wiki/ponto_percentual
+# https://github.com/tidyverse/dplyr/issues/6206
+# https://www.amcharts.com/demos/waterfall-chart/
+
+# pp_suffix <- " pp"
+pp_suffix <- "pp"
 
 vigia_to_plot <- vigia %>%
-  mutate(waterfall = round(resumo_infraestrutura - lag(resumo_infraestrutura), 1)) %>%
+  mutate(
+    waterfall = round(resumo_infraestrutura - lag(resumo_infraestrutura), 1)
+  ) %>%
   mutate(waterfall = coalesce(waterfall, resumo_infraestrutura)) %>%
   mutate(bar_color = case_when(
     row_number() == 1 ~ "green",
     sign(waterfall) == 1 ~ "blue",
     sign(waterfall) == -1 ~ "red"
   )) %>%
-  mutate(label = ifelse(
-    mes %in% c("jan."),
-    paste0(waterfall, "%"),
-    paste0(waterfall, " pp")
+  # mutate(label = ifelse(
+  #   mes %in% c("jan."),
+  #   paste0(waterfall, "%"),
+  #   paste0(waterfall, " pp")
+  # )) %>%
+  mutate(label = case_when(
+    mes == "jan." ~ paste0(abs(waterfall), "%"),
+    waterfall != 0 ~ paste0(abs(waterfall), pp_suffix),
+    TRUE ~ as.character(abs(waterfall))
   )) %>%
   mutate(mes = ifelse(row_number() == 1, paste0(mes, "*"), as.character(mes)))
 vigia_to_plot %>% glimpse()
@@ -140,8 +153,10 @@ vigia_to_plot %>%
   )
 
 px_per_inch <- 72
-width <- 568 / px_per_inch
-height <- 320 / px_per_inch
+# width <- 568 / px_per_inch
+# height <- 320 / px_per_inch
+width <- 640 / px_per_inch
+height <- 360 / px_per_inch
 
 ggsave(
   here("waterfall_chart.svg"),
