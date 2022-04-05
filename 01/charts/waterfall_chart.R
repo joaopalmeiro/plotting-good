@@ -55,11 +55,22 @@ vigia
 # https://pt.wikipedia.org/wiki/Porcentagem#Ponto_percentual
 # https://en.wikipedia.org/wiki/Percentage_point
 # https://pt.wiktionary.org/wiki/ponto_percentual
+# https://www.ine.pt/xportal/xmain?xpid=INE&xpgid=ine_destaques&DESTAQUESdest_boui=415270328&DESTAQUESmodo=2
 # https://github.com/tidyverse/dplyr/issues/6206
 # https://www.amcharts.com/demos/waterfall-chart/
+# https://blog.datawrapper.de/beautifulcolors/#5
+# https://www.washingtonpost.com/graphics/politics/trump-rolling-back-obama-rules/
+# https://github.com/nusu/avvvatars
+# https://avvvatars.com/
 
 # pp_suffix <- " pp"
 pp_suffix <- "pp"
+
+green <- "#6F927C"
+red <- "#A36969"
+gray <- "#E0E6EB"
+black <- "#2D3A46"
+light_gray <- "#E6EBEF"
 
 vigia_to_plot <- vigia %>%
   mutate(
@@ -67,9 +78,9 @@ vigia_to_plot <- vigia %>%
   ) %>%
   mutate(waterfall = coalesce(waterfall, resumo_infraestrutura)) %>%
   mutate(bar_color = case_when(
-    row_number() == 1 ~ "green",
-    sign(waterfall) == 1 ~ "blue",
-    sign(waterfall) == -1 ~ "red"
+    row_number() == 1 ~ gray,
+    sign(waterfall) == 1 ~ green,
+    sign(waterfall) == -1 ~ red
   )) %>%
   # mutate(label = ifelse(
   #   mes %in% c("jan."),
@@ -99,8 +110,8 @@ vigia_to_plot %>%
     # draw_lines = TRUE,
     draw_lines = FALSE,
     linetype = "solid",
-    total_rect_color = "orange",
-    total_rect_text_color = "black",
+    total_rect_color = gray,
+    total_rect_text_color = black,
     # total_axis_text = "dez.",
     # total_axis_text = "",
     total_axis_text = last_label,
@@ -134,19 +145,19 @@ vigia_to_plot %>%
     axis.title = element_blank(),
     axis.text.x = element_text(
       size = 14,
-      colour = "black"
+      colour = black
     ),
     axis.text.y = element_text(
       size = 12,
-      colour = "black",
+      colour = black,
       # hjust = 0.5
     ),
     panel.grid.major.y = element_line(
-      colour = "gray",
+      colour = gray,
       linetype = "solid"
     ),
     panel.grid.major.x = element_line(
-      colour = "lightgray",
+      colour = light_gray,
       linetype = "dashed"
     ),
     panel.grid.minor = element_blank()
