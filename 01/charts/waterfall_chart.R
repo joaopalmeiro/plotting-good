@@ -52,6 +52,9 @@ vigia <- df %>%
   arrange(data)
 vigia
 
+# https://pt.wikipedia.org/wiki/Porcentagem#Ponto_percentual
+# https://en.wikipedia.org/wiki/Percentage_point
+
 vigia_to_plot <- vigia %>%
   mutate(waterfall = round(resumo_infraestrutura - lag(resumo_infraestrutura), 1)) %>%
   mutate(waterfall = coalesce(waterfall, resumo_infraestrutura)) %>%
@@ -59,6 +62,11 @@ vigia_to_plot <- vigia %>%
     row_number() == 1 ~ "green",
     sign(waterfall) == 1 ~ "blue",
     sign(waterfall) == -1 ~ "red"
+  )) %>%
+  mutate(label = ifelse(
+    mes %in% c("jan."),
+    paste0(waterfall, "%"),
+    paste0(waterfall, " pp")
   )) %>%
   mutate(mes = ifelse(row_number() == 1, paste0(mes, "*"), as.character(mes)))
 vigia_to_plot %>% glimpse()
@@ -95,6 +103,9 @@ vigia_to_plot %>%
     # rect_width = 1
     rect_width = 0.95,
     put_rect_text_outside_when_value_below = label_threshold,
+    rect_text_labels = vigia_to_plot$label,
+    # https://github.com/HughParsonage/waterfalls/blob/master/R/waterfall.R#L46
+    total_rect_text = paste0(sum(vigia_to_plot$waterfall), "%")
   ) +
   # geom_hline(yintercept = 0) +
   # geom_hline(yintercept = 100) +
