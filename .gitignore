@@ -186,5 +186,5 @@ rsconnect/
 01/charts/strip_chart.svg
 01/data/raw/distritos
 01/data/minimap_vigia.svg
-01/charts/waterfall_chart.svg
+01/charts/waterfall_chart_*.svg
 01/charts/streamgraph.svg

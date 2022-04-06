@@ -38,6 +38,10 @@ convert_month <- function(x) {
 # https://r-charts.com/flow/waterfall-chart/
 # https://dplyr.tidyverse.org/reference/case_when.html
 
+# https://github.com/HughParsonage/waterfalls/blob/master/R/waterfall.R#L43
+# multiplier <- 0.25
+multiplier <- 0.05
+
 year <- 2021
 
 vigia <- df %>%
@@ -98,9 +102,6 @@ vigia_to_plot %>% glimpse()
 last_label <- paste0(tail(vigia_to_plot, 1)$mes, "*")
 last_label
 
-# https://github.com/HughParsonage/waterfalls/blob/master/R/waterfall.R#L43
-# multiplier <- 0.25
-multiplier <- 0.05
 label_threshold <- multiplier * (max(cumsum(vigia_to_plot$waterfall)) - min(cumsum(vigia_to_plot$waterfall)))
 
 vigia_to_plot %>%
@@ -170,7 +171,7 @@ width <- 640 / px_per_inch
 height <- 360 / px_per_inch
 
 ggsave(
-  here("waterfall_chart.svg"),
+  here(paste0("waterfall_chart_", year, ".svg")),
   width = width,
   height = height
 )
