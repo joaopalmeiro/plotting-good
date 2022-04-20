@@ -130,6 +130,7 @@ df_to_plot %>%
   ) +
   scale_fill_manual(values = pal) +
   # scale_fill_manual(values = hcl.colors(10)) +
+  # scale_x_date(date_labels = "%y", date_breaks = "1 year") +
   theme(
     plot.margin = margin(t = 0, r = 0, b = 0, l = 0),
     panel.background = element_rect(fill = NA),
