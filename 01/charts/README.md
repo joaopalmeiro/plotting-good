@@ -23,6 +23,9 @@
 - [GADM data](https://gadm.org/download_country.html).
   - Portugal: `The coordinate reference system is longitude/latitude and the WGS84 datum.`
 - [Distritos de Portugal](https://dados.gov.pt/en/datasets/distritos-de-portugal/).
+- [Bacias SNIRH](https://dados.gov.pt/pt/datasets/atlas-da-agua-bacias-snirh/).
+- [Black Left-Pointing Small Triangle](https://www.compart.com/en/unicode/U+25C2).
+- [Black Right-Pointing Small Triangle](https://www.compart.com/en/unicode/U+25B8).
 
 ### Font sizes
 
