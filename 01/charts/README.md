@@ -6,6 +6,8 @@
 
 - [Figma](https://www.figma.com/file/pn4SRRD9gUnYrNq7S9SbRh/radar_chart?node-id=0%3A1) (`radar_chart`).
 - [Figma](https://www.figma.com/file/fashWaspUYpcRgGyy951N2/strip_chart?node-id=0%3A1) (`strip_chart`).
+- [Figma](https://www.figma.com/file/AReVlbINgHXEUJD5YHSl8A/waterfall_chart?node-id=0%3A1) (`waterfall_chart`).
+- [Figma](https://www.figma.com/file/yCCEWgHL8kgTCCbfGNpXwd/streamgraph?node-id=0%3A1) (`streamgraph`).
 - `R --version`
 - `styler::style_dir()`.
 - `theme_get()$axis.text`.
@@ -26,6 +28,8 @@
 - [Bacias SNIRH](https://dados.gov.pt/pt/datasets/atlas-da-agua-bacias-snirh/).
 - [Black Left-Pointing Small Triangle](https://www.compart.com/en/unicode/U+25C2).
 - [Black Right-Pointing Small Triangle](https://www.compart.com/en/unicode/U+25B8).
+- [Tailwind spacing scale](https://tailwindcss.com/docs/customizing-spacing#default-spacing-scale).
+- 40px margin on each side.
 
 ### Font sizes
 
