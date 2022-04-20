@@ -95,6 +95,9 @@ pal
 
 # https://rawgraphs.io/learning/how-to-make-a-streamgraph/
 # https://r-charts.com/evolution/ggstream/
+# https://github.com/tidyverse/ggplot2/blob/main/R/geom-.r#L204
+
+gridline_width_px <- 1
 
 df_to_plot %>%
   ggplot(aes(
@@ -147,7 +150,9 @@ df_to_plot %>%
     panel.grid.major.y = element_blank(),
     panel.grid.major.x = element_line(
       colour = "lightgray",
-      linetype = "solid"
+      linetype = "solid",
+      # size = 1,
+      size = (gridline_width_px / ggplot2::.pt) / 0.75,
     ),
     panel.grid.minor = element_blank()
   )
