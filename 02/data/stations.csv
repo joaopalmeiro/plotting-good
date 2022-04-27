@@ -1,0 +1,70 @@
+v_estacoes_metadados.estacao_nome,v_estacoes_metadados.zona_nome,v_estacoes_metadados.concelho_nome,v_estacoes_metadados.influencia_nome,v_estacoes_metadados.ambiente_nome
+Custóias-Matosinhos,,Matosinhos,Fundo,Suburbana
+Ermesinde-Valongo,,Valongo,Fundo,Urbana
+D.Manuel II-Vermoim,,Maia,Tráfego,Urbana
+Meco-Perafita,,Matosinhos,Industrial,Suburbana
+Francisco Sá Carneiro-Campanha,,Porto,Tráfego,Urbana
+João Gomes Laranjo-S.Hora,,Matosinhos,Tráfego,Urbana
+VNTelha-Maia,,Maia,Fundo,Suburbana
+Leça do Balio-Matosinhos,,Matosinhos,Fundo,Suburbana
+Fr Bartolomeu Mártires-S.Vitor,,Braga,Tráfego,Urbana
+Frossos-Braga,,Braga,Fundo,Suburbana
+Pe Moreira Neves-Castelões de Cepeda,,Paredes,Tráfego,Urbana
+Paços de Ferreira,,Paços de Ferreira,Fundo,Urbana
+Cónego Dr. Manuel Faria-Azurém,,Guimarães,Tráfego,Urbana
+Minho-Lima,,Viana do Castelo,Fundo,Rural
+Douro Norte,,Vila Real,Fundo,Rural
+Sobreiras-Lordelo do Ouro,,Porto,Fundo,Urbana
+Mindelo-Vila do Conde,,Vila do Conde,Fundo,Suburbana
+Burgães-Santo Tirso,,Santo Tirso,Fundo,Urbana
+Avintes,,Gaia,Fundo,Urbana
+Anta-Espinho,,Espinho,Fundo,Suburbana
+Seara-Matosinhos,,Matosinhos,Industrial,Urbana
+Santa Combinha,,Macedo de Cavaleiros,Fundo,Rural
+Estarreja,,Estarreja,Fundo,Suburbana
+Coimbra/ Avenida Fernão Magalhães,,Coimbra,Tráfego,Urbana
+Instituto Geofísico de Coimbra,,Coimbra,Fundo,Urbana
+Aveiro,,Aveiro,Tráfego,Urbana
+Ílhavo,,Ílhavo,Fundo,Suburbana
+Ervedeira,,Leiria,Fundo,Rural
+Fundão,,Fundão,Fundo,Rural
+Fornelo do Monte,,Vouzela,Fundo,Rural
+Montemor-o-Velho,,Montemor-o-Velho,Fundo,Rural
+Lavradio,AML Sul,Barreiro,Industrial,Urbana
+Paio Pires,AML Sul,Seixal,Industrial,Suburbana
+Beato,AML Norte,Lisboa,Fundo,Urbana
+Olivais,AML Norte,Lisboa,Fundo,Urbana
+Entrecampos,AML Norte,Lisboa,Tráfego,Urbana
+Avenida da Liberdade,AML Norte,Lisboa,Tráfego,Urbana
+Alfragide/Amadora,AML Norte,Amadora,Fundo,Urbana
+Laranjeiro,AML Sul,Almada,Fundo,Urbana
+Reboleira,AML Norte,Amadora,Fundo,Urbana
+Loures-Centro,AML Norte,Loures,Fundo,Urbana
+Restelo,AML Norte,Lisboa,Fundo,Urbana
+Mem Martins,AML Norte,Sintra,Fundo,Urbana
+Quinta do Marquês,AML Norte,Oeiras,Fundo,Urbana
+Camarinha,,Setúbal,Fundo,Urbana
+Arcos,,Setúbal,Fundo,Urbana
+Quebedo,,Setúbal,Tráfego,Urbana
+Escavadeira,AML Sul,Barreiro,Fundo,Urbana
+Chamusca,,Chamusca,Fundo,Rural
+Odivelas-Ramada,AML Norte,Odivelas,Tráfego,Urbana
+Fernando Pó,,Palmela,Fundo,Rural
+Santa Cruz de Benfica,AML Norte,Lisboa,Tráfego,Urbana
+Alverca,AML Norte,Vila Franca de Xira,Fundo,Urbana
+Lourinhã,,Lourinhã,Fundo,Rural
+Fidalguinhos,AML Sul,Barreiro,Fundo,Urbana
+Cascais - Escola da Cidadela,AML Norte,Cascais,Fundo,Urbana
+Monte Chãos,,Sines,Industrial,Suburbana
+Monte Velho,,Santiago do Cacém,Fundo,Rural
+Sonega,,Santiago do Cacém,Industrial,Rural
+Santiago do Cacém,,Santiago do Cacém,Industrial,Urbana
+Terena,,Alandroal,Fundo,Rural
+Joaquim Magalhães,,Faro,Fundo,Urbana
+Malpique,,Albufeira,Fundo,Urbana
+David Neto,,Portimão,Tráfego,Urbana
+Cerro,,Alcoutim,Fundo,Rural
+São João,,Funchal,Tráfego,Urbana
+São Gonçalo,,Funchal,Fundo,Urbana
+Santana,,Santana,Fundo,Rural
+Faial,,Horta (Ilha do Faial),Fundo,Rural
